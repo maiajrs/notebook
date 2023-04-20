@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: <%= ENV['POSTGRES_DB']%>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
+  port: <%= ENV['POSTGRES_PORT'] || '5432' %>
+  # config docker
+  host: <%= ENV['POSTGRES_HOST'] %>
+
+development:
+  <<: *default
+  database: notebook_development
+
+test:
+  <<: *default
+  database: notebook_test
+
+production:
+  <<: *default
+  database: notebook_production
+  username: notebook
+  password: <%= ENV["NOTEBOOK_DATABASE_PASSWORD"] %>
